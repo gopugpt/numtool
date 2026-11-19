@@ -1,36 +1,45 @@
 # numtool
 
-Phone number OSINT CLI for Termux. Number validate, carrier/region lookup aur multiple API scanners.
+Phone number OSINT CLI for Termux. Validate numbers and look up carrier/region information, with optional third-party API scanners.
 
 ## Install
-    pkg install python git
-    pip install -r requirements.txt
-    mkdir -p ~/.config/numtool
-    cp keys.env.example ~/.config/numtool/keys.env
-    # phir keys.env me apni keys bharo
+
+```sh
+pkg install python git
+pip install -r requirements.txt
+mkdir -p ~/.config/numtool
+cp keys.env.example ~/.config/numtool/keys.env
+# Add your API keys to ~/.config/numtool/keys.env as needed.
+```
 
 ## Usage
-Numbers E164 format me do (country code ke saath).
 
-    python numtool.py "+919981307896"
-    python numtool.py "+919981307896" --local-only
-    python numtool.py -i nums.txt --local-only --csv out.csv
-    python numtool.py "+919981307896" -a
+Use E.164 format with the country calling code.
 
-## Flags
-    -i FILE        ek line par ek number
-    -s SCANNER     specific scanner
-    -a             jitni keys set hain, sab chalao
-    --local-only   sirf offline lookup
-    -o FILE        JSON output
-    --csv FILE     CSV summary
-    --json         JSON stdout
-    --rate N       rate limit
-    --no-cache     cache ignore karo
+```sh
+python numtool.py "+12025550123" --local-only
+python numtool.py "+12025550123" -a
+python numtool.py -i my-numbers.txt --local-only --csv out.csv
+```
 
-## Keys
-Numverify, Veriphone, AbstractAPI, IPQS, Google CSE — sabka free tier hai.
-Bina key ke scanners skip ho jate hain.
+`my-numbers.txt` should contain one number per line. Keep personal number lists local; `nums.txt` is ignored by Git.
+
+## Options
+
+- `-i FILE`: read one number per line
+- `-s SCANNER`: select scanners
+- `-a`: run scanners with configured keys
+- `--local-only`: perform offline lookup only
+- `-o FILE`: write JSON to a file
+- `--csv FILE`: write a CSV summary
+- `--json`: print JSON to stdout
+- `--rate N`: delay in seconds between requests
+- `--no-cache`: bypass the local cache
+
+## API keys and privacy
+
+Numverify, Veriphone, AbstractAPI, IPQS, and Google Custom Search require API keys. Scanners without configured keys are skipped. Online scanners send the queried phone number to the selected third-party service. Use this tool only with numbers you are authorized to look up, and review each provider's terms and privacy policy.
 
 ## License
+
 MIT

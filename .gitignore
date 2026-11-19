@@ -6,3 +6,5 @@ keys.env
 *.log
 *.json
 out.csv
+nums.txt
+my-numbers.txt
